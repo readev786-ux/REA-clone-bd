@@ -55,7 +55,7 @@ export default function AdminLogin() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-xl border border-navy/15 bg-white px-4 py-3 text-sm outline-none focus:border-gold focus:ring-2 focus:ring-gold/30"
-                placeholder="admin@ahsproperties.com"
+                placeholder="Email address"
               />
             </label>
             <label className="block">
