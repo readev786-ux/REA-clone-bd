@@ -30,11 +30,16 @@ site, re-architected as a **production-ready full-stack application** with a
 - **FAQ** accordion, animated **WhatsApp** float button, full responsive design,
   glassmorphism navbar, scroll reveals and SEO meta tags.
 
-### Admin CMS (`/admin`, auth-gated)
+### Admin CMS (`/admin`, auth-gated) — manage everything in-app, no Supabase Studio
 - Supabase email/password login (staff-only via RLS).
 - Dashboard with live KPIs and recent leads.
 - Manage **inquiries** and **appointments** (status workflow).
-- Manage **developments** (feature toggle, delete, quick view).
+- **Create / edit / delete developments** — full form with units, amenities,
+  gallery and cover-photo **uploads** (to Supabase Storage).
+- **CSV bulk import** — load many developments + units at once, from a
+  downloadable template (preview before importing).
+- **Media Library** — drag-and-drop photos onto each development at scale, with
+  a "missing photos" filter for finishing a fresh import.
 
 ### Backend (Supabase)
 - 9 tables: `projects`, `units`, `inquiries`, `appointments`, `blog_posts`,

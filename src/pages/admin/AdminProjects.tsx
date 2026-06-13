@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { Star, Trash2, ExternalLink, MapPin } from 'lucide-react'
+import { Star, Trash2, ExternalLink, MapPin, Pencil, Plus, Upload } from 'lucide-react'
 import { useProjects } from '../../hooks/useData'
 import { deleteProject, updateProject } from '../../lib/queries'
 import { Spinner } from '../../components/ui/Primitives'
@@ -30,12 +30,21 @@ export default function AdminProjects() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="font-display text-2xl font-semibold text-navy-deep">Developments</h2>
-        <p className="text-sm text-ash">
-          Toggle homepage features or remove a development. Detailed editing is available in
-          Supabase Studio.
-        </p>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 className="font-display text-2xl font-semibold text-navy-deep">Developments</h2>
+          <p className="text-sm text-ash">
+            Create, edit and manage every listing — units, amenities and photos included.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Link to="/admin/import" className="inline-flex items-center gap-2 rounded-full border border-navy/15 px-4 py-2.5 text-sm font-semibold text-navy-deep hover:border-gold">
+            <Upload className="h-4 w-4" /> Import CSV
+          </Link>
+          <Link to="/admin/projects/new" className="btn-gold inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold">
+            <Plus className="h-4 w-4" /> New development
+          </Link>
+        </div>
       </div>
 
       {isLoading ? (
@@ -81,6 +90,13 @@ export default function AdminProjects() {
                   <Star className={`h-4 w-4 ${p.featured ? 'fill-current' : ''}`} />
                   {p.featured ? 'Featured' : 'Feature'}
                 </button>
+                <Link
+                  to={`/admin/projects/${p.id}/edit`}
+                  className="inline-flex h-10 items-center gap-1.5 rounded-full border border-navy/15 px-3 text-sm font-semibold text-navy-deep/80 hover:border-gold hover:text-gold-deep"
+                  title="Edit development"
+                >
+                  <Pencil className="h-4 w-4" /> Edit
+                </Link>
                 <Link
                   to={`/developments/${p.slug}`}
                   target="_blank"

@@ -24,6 +24,9 @@ import Dashboard from './pages/admin/Dashboard'
 import AdminInquiries from './pages/admin/AdminInquiries'
 import AdminAppointments from './pages/admin/AdminAppointments'
 import AdminProjects from './pages/admin/AdminProjects'
+import DevelopmentEditor from './pages/admin/DevelopmentEditor'
+import AdminImport from './pages/admin/AdminImport'
+import AdminMedia from './pages/admin/AdminMedia'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,6 +71,10 @@ export default function App() {
               <Route path="inquiries" element={<AdminInquiries />} />
               <Route path="appointments" element={<AdminAppointments />} />
               <Route path="projects" element={<AdminProjects />} />
+              <Route path="projects/new" element={<DevelopmentEditor />} />
+              <Route path="projects/:id/edit" element={<DevelopmentEditor />} />
+              <Route path="import" element={<AdminImport />} />
+              <Route path="media" element={<AdminMedia />} />
             </Route>
           </Routes>
         </BrowserRouter>

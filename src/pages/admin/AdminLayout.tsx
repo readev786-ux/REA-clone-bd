@@ -4,6 +4,8 @@ import {
   Inbox,
   CalendarClock,
   Building2,
+  Upload,
+  Images,
   LogOut,
   ExternalLink,
 } from 'lucide-react'
@@ -16,6 +18,8 @@ const nav = [
   { to: '/admin/inquiries', label: 'Inquiries', icon: Inbox, end: false },
   { to: '/admin/appointments', label: 'Appointments', icon: CalendarClock, end: false },
   { to: '/admin/projects', label: 'Developments', icon: Building2, end: false },
+  { to: '/admin/import', label: 'Import CSV', icon: Upload, end: false },
+  { to: '/admin/media', label: 'Media Library', icon: Images, end: false },
 ]
 
 export default function AdminLayout() {
