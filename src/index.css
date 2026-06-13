@@ -1,0 +1,167 @@
+@import 'tailwindcss';
+
+/* ===================================================================
+   AHS Properties — design tokens (Tailwind v4 @theme)
+   Brand: deep navy + heritage gold + terracotta on warm off-white.
+=================================================================== */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces', 'Georgia', 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Navy */
+  --color-navy: #1e2a4a;
+  --color-navy-deep: #151f38;
+  --color-navy-darker: #0f1729;
+  --color-navy-ink: #0a0f1f;
+  --color-navy-soft: #2c3a5e;
+
+  /* Heritage gold */
+  --color-gold: #dfad42;
+  --color-gold-soft: #c5a257;
+  --color-gold-deep: #b08e45;
+  --color-gold-pale: #f4e4bd;
+  --color-gold-wash: #fbf6e9;
+
+  /* Terracotta accent */
+  --color-clay: #b84822;
+  --color-clay-bright: #f5653b;
+
+  /* Greens (eco / available) */
+  --color-forest: #104a32;
+  --color-mint: #4ade80;
+
+  /* Surfaces */
+  --color-sand: #faf8f4;
+  --color-cream: #fbf8f1;
+  --color-paper: #ffffff;
+  --color-ink: #1c1917;
+  --color-ash: #6b6862;
+
+  --radius-xl2: 1.25rem;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.2s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================================================================
+   Base
+=================================================================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background-color: var(--color-sand);
+    color: var(--color-navy-deep);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-navy-ink);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-sand); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-gold-soft);
+    border-radius: 999px;
+    border: 2px solid var(--color-sand);
+  }
+}
+
+/* ===================================================================
+   Reusable component utilities
+=================================================================== */
+@layer components {
+  /* Frosted-glass navbar / cards — the "Allys" design language */
+  .glass {
+    background: color-mix(in srgb, white 62%, transparent);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid color-mix(in srgb, white 55%, transparent);
+  }
+  .glass-dark {
+    background: color-mix(in srgb, var(--color-navy-darker) 55%, transparent);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid color-mix(in srgb, white 12%, transparent);
+  }
+
+  .text-balance { text-wrap: balance; }
+
+  /* Section heading kicker */
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-gold-deep);
+  }
+
+  /* Gold gradient text */
+  .text-gold-gradient {
+    background: linear-gradient(100deg, #b08e45, #f0cd7a 45%, #b08e45);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Primary CTA */
+  .btn-gold {
+    background: linear-gradient(135deg, #e6bb56, #c79a3c);
+    color: var(--color-navy-ink);
+    box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--color-gold) 70%, transparent);
+  }
+  .btn-gold:hover { filter: brightness(1.05); }
+
+  .card-shadow {
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04),
+      0 12px 40px -16px rgba(16, 24, 40, 0.22);
+  }
+
+  .reveal {
+    opacity: 0;
+    animation: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  }
+
+  /* Shimmer skeleton */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-navy) 6%, transparent) 25%,
+      color-mix(in srgb, var(--color-navy) 12%, transparent) 37%,
+      color-mix(in srgb, var(--color-navy) 6%, transparent) 63%
+    );
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+  }
+}
+
+@layer utilities {
+  .pause-on-hover:hover { animation-play-state: paused; }
+}

@@ -1,0 +1,52 @@
+import { useQuery } from '@tanstack/react-query'
+import {
+  fetchAllUnits,
+  fetchAppointments,
+  fetchBlogPost,
+  fetchBlogPosts,
+  fetchFaqs,
+  fetchFeaturedProjects,
+  fetchInquiries,
+  fetchPartners,
+  fetchProjectBySlug,
+  fetchProjects,
+  fetchTestimonials,
+  type ProjectFilters,
+} from '../lib/queries'
+
+export const useProjects = (filters: ProjectFilters = {}) =>
+  useQuery({ queryKey: ['projects', filters], queryFn: () => fetchProjects(filters) })
+
+export const useFeaturedProjects = () =>
+  useQuery({ queryKey: ['projects', 'featured'], queryFn: fetchFeaturedProjects })
+
+export const useProject = (slug: string | undefined) =>
+  useQuery({
+    queryKey: ['project', slug],
+    queryFn: () => fetchProjectBySlug(slug!),
+    enabled: !!slug,
+  })
+
+export const useAllUnits = () =>
+  useQuery({ queryKey: ['units', 'all'], queryFn: fetchAllUnits })
+
+export const useBlogPosts = () =>
+  useQuery({ queryKey: ['blog'], queryFn: fetchBlogPosts })
+
+export const useBlogPost = (slug: string | undefined) =>
+  useQuery({ queryKey: ['blog', slug], queryFn: () => fetchBlogPost(slug!), enabled: !!slug })
+
+export const usePartners = () =>
+  useQuery({ queryKey: ['partners'], queryFn: fetchPartners })
+
+export const useTestimonials = () =>
+  useQuery({ queryKey: ['testimonials'], queryFn: fetchTestimonials })
+
+export const useFaqs = () => useQuery({ queryKey: ['faqs'], queryFn: fetchFaqs })
+
+// Admin
+export const useInquiries = (enabled: boolean) =>
+  useQuery({ queryKey: ['inquiries'], queryFn: fetchInquiries, enabled })
+
+export const useAppointments = (enabled: boolean) =>
+  useQuery({ queryKey: ['appointments'], queryFn: fetchAppointments, enabled })
