@@ -86,13 +86,17 @@ VITE_WHATSAPP_NUMBER=8801625555700
 VITE_CONTACT_EMAIL=ahsproperiesdevelopmentltd@gmail.com
 ```
 
-### Admin access (demo)
+### Admin access
 
-| Field    | Value                       |
-|----------|-----------------------------|
-| URL      | `/admin`                    |
-| Email    | `admin@ahsproperties.com`   |
-| Password | `AhsAdmin2026!`             |
+| Field    | Value                                       |
+|----------|---------------------------------------------|
+| URL      | `/admin`                                    |
+| Email    | `admin@ahsproperties.com`                   |
+| Password | Set during setup — **not** stored in this repo |
+
+> The live demo's admin password is shared out-of-band (never committed). When
+> you provision your own backend, choose a strong password in
+> `supabase/seed_admin.sql` before running it.
 
 ---
 
@@ -104,7 +108,7 @@ To stand up your **own** backend (instead of the bundled one):
 2. In the SQL editor, run, in order:
    - `supabase/migrations/0001_schema_rls_triggers.sql`
    - `supabase/seed.sql`
-   - `supabase/seed_admin.sql` (creates `admin@ahsproperties.com` / `AhsAdmin2026!`)
+   - `supabase/seed_admin.sql` (creates `admin@ahsproperties.com`; set your own strong password in the file first)
 3. Copy your project URL and **publishable key** (Project Settings → API) into `.env`.
 
 Or with the Supabase CLI:

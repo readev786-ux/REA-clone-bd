@@ -81,8 +81,8 @@ export default function AdminLogin() {
             </button>
           </form>
 
-          <p className="mt-6 rounded-xl bg-gold-wash px-4 py-3 text-center text-xs text-gold-deep">
-            Demo: admin@ahsproperties.com · AhsAdmin2026!
+          <p className="mt-6 rounded-xl bg-navy/5 px-4 py-3 text-center text-xs text-ash">
+            Authorised AHS staff only. Contact your administrator for access.
           </p>
         </div>
       </div>

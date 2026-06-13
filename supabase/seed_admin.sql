@@ -24,7 +24,8 @@ begin
     ) values (
       '00000000-0000-0000-0000-000000000000', uid, 'authenticated', 'authenticated',
       'admin@ahsproperties.com',
-      extensions.crypt('AhsAdmin2026!', extensions.gen_salt('bf')),
+      -- Choose a strong password here before running this script.
+      extensions.crypt('CHANGE_ME_to_a_strong_password', extensions.gen_salt('bf')),
       now(), '{"provider":"email","providers":["email"]}',
       '{"full_name":"AHS Administrator"}', now(), now(), '', '', '', ''
     );
