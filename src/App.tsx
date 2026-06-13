@@ -31,6 +31,9 @@ const queryClient = new QueryClient({
   },
 })
 
+// Honour Vite's base path so routing works under a subpath (e.g. GitHub Pages).
+const ROUTER_BASENAME = import.meta.env.BASE_URL.replace(/\/+$/, '') || '/'
+
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
@@ -43,7 +46,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={ROUTER_BASENAME}>
           <ScrollToTop />
           <Routes>
             <Route element={<Layout />}>
