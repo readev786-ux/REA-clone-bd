@@ -1,5 +1,15 @@
 import { supabase } from './supabase'
-import type { Project, Unit, ProjectWithUnits, UnitStatus, UnitType, ProjectCategory, ProjectStatus } from './types'
+import type {
+  Project,
+  Unit,
+  ProjectWithUnits,
+  UnitStatus,
+  UnitType,
+  ProjectCategory,
+  ProjectStatus,
+  Testimonial,
+  BlogPost,
+} from './types'
 
 // ---------------------------------------------------------------------
 // Slugs
@@ -352,6 +362,69 @@ export function parseDevelopmentsCsv(text: string): { developments: ParsedDevelo
     }
   }
   return { developments: [...map.values()], errors }
+}
+
+// ---------------------------------------------------------------------
+// Testimonials
+// ---------------------------------------------------------------------
+export async function saveTestimonial(t: Partial<Testimonial> & { name: string; quote: string }) {
+  if (t.id) {
+    const { error } = await supabase.from('testimonials').update(t).eq('id', t.id)
+    if (error) throw error
+  } else {
+    const { error } = await supabase.from('testimonials').insert(t)
+    if (error) throw error
+  }
+}
+
+export async function deleteTestimonial(id: string) {
+  const { error } = await supabase.from('testimonials').delete().eq('id', id)
+  if (error) throw error
+}
+
+// ---------------------------------------------------------------------
+// Blog / Insights
+// ---------------------------------------------------------------------
+export async function fetchAllBlogPosts(): Promise<BlogPost[]> {
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .select('*')
+    .order('published_at', { ascending: false })
+  if (error) throw error
+  return data ?? []
+}
+
+export async function fetchBlogPostById(id: string): Promise<BlogPost | null> {
+  const { data, error } = await supabase.from('blog_posts').select('*').eq('id', id).maybeSingle()
+  if (error) throw error
+  return data ?? null
+}
+
+async function ensureUniqueBlogSlug(base: string, ignoreId?: string): Promise<string> {
+  const root = base || `post-${Date.now().toString(36)}`
+  let candidate = root
+  for (let i = 2; i < 50; i++) {
+    const { data } = await supabase.from('blog_posts').select('id').eq('slug', candidate).maybeSingle()
+    if (!data || data.id === ignoreId) return candidate
+    candidate = `${root}-${i}`
+  }
+  return `${root}-${Date.now().toString(36).slice(-4)}`
+}
+
+export async function saveBlogPost(post: Partial<BlogPost> & { title: string }) {
+  const slug = await ensureUniqueBlogSlug(post.slug || slugify(post.title), post.id)
+  if (post.id) {
+    const { error } = await supabase.from('blog_posts').update({ ...post, slug }).eq('id', post.id)
+    if (error) throw error
+  } else {
+    const { error } = await supabase.from('blog_posts').insert({ ...post, slug })
+    if (error) throw error
+  }
+}
+
+export async function deleteBlogPost(id: string) {
+  const { error } = await supabase.from('blog_posts').delete().eq('id', id)
+  if (error) throw error
 }
 
 export interface ImportResult {

@@ -66,6 +66,11 @@ export function useContent() {
 }
 
 // Admin
+import { fetchAllBlogPosts } from '../lib/admin'
+
+export const useAllBlogPosts = (enabled = true) =>
+  useQuery({ queryKey: ['blog', 'all'], queryFn: fetchAllBlogPosts, enabled })
+
 export const useInquiries = (enabled: boolean) =>
   useQuery({ queryKey: ['inquiries'], queryFn: fetchInquiries, enabled })
 
