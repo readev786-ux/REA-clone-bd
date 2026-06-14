@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search, Sparkles, ChevronDown } from 'lucide-react'
 import { Container } from '../ui/Primitives'
+import { useContent } from '../../hooks/useData'
 
 const categories = [
   { value: 'all', label: 'All categories' },
@@ -11,16 +12,17 @@ const categories = [
   { value: 'investment', label: 'Investment' },
 ]
 
-const stats = [
-  { value: '18+', label: 'Signature units released' },
-  { value: '8', label: 'Flagship developments' },
-  { value: '100%', label: 'RAJUK & Cantonment approved' },
-]
-
 export function Hero() {
   const navigate = useNavigate()
+  const c = useContent()
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('all')
+
+  const stats = [
+    { value: c('home.hero.stat1_value', '18+'), label: c('home.hero.stat1_label', 'Signature units released') },
+    { value: c('home.hero.stat2_value', '8'), label: c('home.hero.stat2_label', 'Flagship developments') },
+    { value: c('home.hero.stat3_value', '100%'), label: c('home.hero.stat3_label', 'RAJUK & Cantonment approved') },
+  ]
 
   function onSearch(e: React.FormEvent) {
     e.preventDefault()
@@ -35,7 +37,10 @@ export function Hero() {
       {/* Background */}
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80"
+          src={c(
+            'home.hero.image',
+            'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80',
+          )}
           alt=""
           className="h-full w-full object-cover"
         />
@@ -47,17 +52,20 @@ export function Hero() {
         <div className="max-w-3xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-gold backdrop-blur">
             <Sparkles className="h-3.5 w-3.5" />
-            Bangladesh Luxury Real Estate
+            {c('home.hero.badge', 'Bangladesh Luxury Real Estate')}
           </span>
 
           <h1 className="mt-6 font-display text-4xl font-bold leading-[1.05] text-white sm:text-6xl md:text-7xl text-balance">
-            A Legacy of <span className="text-gold-gradient">Trust</span> &amp; Vision
+            {c('home.hero.title_lead', 'A Legacy of')}{' '}
+            <span className="text-gold-gradient">{c('home.hero.title_accent', 'Trust')}</span>{' '}
+            {c('home.hero.title_tail', '& Vision')}
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
-            Exclusive estates, master-planned townships and high-yield investment portfolios across
-            Jolshiri Abashon and Dhaka — delivered with elite discipline, integrity and escrow-backed
-            assurance.
+            {c(
+              'home.hero.subtitle',
+              'Exclusive estates, master-planned townships and high-yield investment portfolios across Jolshiri Abashon and Dhaka — delivered with elite discipline, integrity and escrow-backed assurance.',
+            )}
           </p>
 
           {/* Search */}
@@ -80,9 +88,9 @@ export function Hero() {
                 onChange={(e) => setCategory(e.target.value)}
                 className="w-full appearance-none rounded-xl border border-navy/10 bg-white/60 px-4 py-3 pr-9 text-sm font-medium text-navy-deep outline-none"
               >
-                {categories.map((c) => (
-                  <option key={c.value} value={c.value}>
-                    {c.label}
+                {categories.map((cat) => (
+                  <option key={cat.value} value={cat.value}>
+                    {cat.label}
                   </option>
                 ))}
               </select>

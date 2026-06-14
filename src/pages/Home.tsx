@@ -20,6 +20,7 @@ import {
   usePartners,
   useTestimonials,
   useBlogPosts,
+  useContent,
 } from '../hooks/useData'
 import { formatDate } from '../lib/format'
 
@@ -61,6 +62,7 @@ export default function Home() {
   const { data: partners } = usePartners()
   const { data: testimonials } = useTestimonials()
   const { data: posts } = useBlogPosts()
+  const c = useContent()
 
   return (
     <>
@@ -136,28 +138,34 @@ export default function Home() {
             <Reveal className="relative">
               <div className="relative overflow-hidden rounded-[2rem] card-shadow">
                 <img
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1100&q=80"
+                  src={c(
+                    'founder.image',
+                    'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1100&q=80',
+                  )}
                   alt="AHS Founder & Principal Broker"
                   className="aspect-[4/5] w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-ink/70 to-transparent" />
                 <div className="glass-dark absolute bottom-5 left-5 right-5 rounded-2xl p-5 text-white">
-                  <p className="font-display text-lg font-semibold">DIG Md. Abu Kalam Siddique</p>
-                  <p className="text-sm text-gold">Founder & Principal Broker</p>
+                  <p className="font-display text-lg font-semibold">
+                    {c('founder.name', 'DIG Md. Abu Kalam Siddique')}
+                  </p>
+                  <p className="text-sm text-gold">{c('founder.role', 'Founder & Principal Broker')}</p>
                 </div>
               </div>
               <div className="absolute -right-4 -top-4 hidden h-24 w-24 rounded-2xl border border-gold/40 sm:block" />
             </Reveal>
 
             <Reveal delay={120}>
-              <p className="kicker mb-3">A Legacy of Trust and Vision</p>
+              <p className="kicker mb-3">{c('founder.kicker', 'A Legacy of Trust and Vision')}</p>
               <h2 className="font-display text-3xl font-semibold leading-tight text-navy-deep sm:text-4xl">
-                Visionary leadership, elite discipline
+                {c('founder.heading', 'Visionary leadership, elite discipline')}
               </h2>
               <p className="mt-5 text-base leading-relaxed text-ash">
-                AHS Properties &amp; Development Ltd. is built on a legacy of elite discipline,
-                integrity and visionary leadership. We merge innovative architecture with utility to
-                deliver premium residential and commercial spaces across Bangladesh.
+                {c(
+                  'founder.body',
+                  'AHS Properties & Development Ltd. is built on a legacy of elite discipline, integrity and visionary leadership. We merge innovative architecture with utility to deliver premium residential and commercial spaces across Bangladesh.',
+                )}
               </p>
               <p className="mt-4 text-base leading-relaxed text-ash">
                 As proud recipient of the Bangladesh Real Estate Excellence Award, we partner with
@@ -275,11 +283,13 @@ export default function Home() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(223,173,66,0.22),transparent_55%)]" />
             <div className="relative mx-auto max-w-2xl">
               <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl text-balance">
-                Let us help you discover your next key investment in Bangladesh
+                {c('home.cta.title', 'Let us help you discover your next key investment in Bangladesh')}
               </h2>
               <p className="mt-4 text-white/70">
-                Direct access to dedicated consultants with local and legal insights. Reserve a
-                private consultation or request a live tour today.
+                {c(
+                  'home.cta.subtitle',
+                  'Direct access to dedicated consultants with local and legal insights. Reserve a private consultation or request a live tour today.',
+                )}
               </p>
               <div className="mt-9 flex flex-wrap justify-center gap-4">
                 <Button to="/contact" size="lg">

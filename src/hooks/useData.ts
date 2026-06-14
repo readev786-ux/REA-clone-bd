@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import {
   fetchAllUnits,
@@ -10,6 +11,7 @@ import {
   fetchPartners,
   fetchProjectBySlug,
   fetchProjects,
+  fetchSiteContent,
   fetchTestimonials,
   type ProjectFilters,
 } from '../lib/queries'
@@ -43,6 +45,25 @@ export const useTestimonials = () =>
   useQuery({ queryKey: ['testimonials'], queryFn: fetchTestimonials })
 
 export const useFaqs = () => useQuery({ queryKey: ['faqs'], queryFn: fetchFaqs })
+
+export const useSiteContent = () =>
+  useQuery({ queryKey: ['site_content'], queryFn: fetchSiteContent, staleTime: 300_000 })
+
+/** Returns a getter `c(key, fallback)` for editable page content. */
+export function useContent() {
+  const { data } = useSiteContent()
+  const map = useMemo(() => {
+    const m: Record<string, string> = {}
+    ;(data ?? []).forEach((r) => {
+      m[r.key] = r.value
+    })
+    return m
+  }, [data])
+  return (key: string, fallback = ''): string => {
+    const v = map[key]
+    return v !== undefined && v !== '' ? v : fallback
+  }
+}
 
 // Admin
 export const useInquiries = (enabled: boolean) =>

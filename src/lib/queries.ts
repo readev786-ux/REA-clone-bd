@@ -7,6 +7,7 @@ import type {
   Partner,
   Project,
   ProjectWithUnits,
+  SiteContent,
   Testimonial,
   Unit,
 } from './types'
@@ -104,6 +105,23 @@ export async function fetchFaqs(): Promise<Faq[]> {
   const { data, error } = await supabase.from('faqs').select('*').order('sort_order')
   if (error) throw error
   return data ?? []
+}
+
+export async function fetchSiteContent(): Promise<SiteContent[]> {
+  const { data, error } = await supabase
+    .from('site_content')
+    .select('*')
+    .order('group_name')
+    .order('sort_order')
+  if (error) throw error
+  return data ?? []
+}
+
+export async function updateSiteContentValues(rows: { key: string; value: string }[]) {
+  for (const r of rows) {
+    const { error } = await supabase.from('site_content').update({ value: r.value }).eq('key', r.key)
+    if (error) throw error
+  }
 }
 
 // ---- Lead capture (public insert) ------------------------------------

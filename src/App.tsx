@@ -27,6 +27,7 @@ import AdminProjects from './pages/admin/AdminProjects'
 import DevelopmentEditor from './pages/admin/DevelopmentEditor'
 import AdminImport from './pages/admin/AdminImport'
 import AdminMedia from './pages/admin/AdminMedia'
+import AdminContent from './pages/admin/AdminContent'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -75,6 +76,7 @@ export default function App() {
               <Route path="projects/:id/edit" element={<DevelopmentEditor />} />
               <Route path="import" element={<AdminImport />} />
               <Route path="media" element={<AdminMedia />} />
+              <Route path="content" element={<AdminContent />} />
             </Route>
           </Routes>
         </BrowserRouter>

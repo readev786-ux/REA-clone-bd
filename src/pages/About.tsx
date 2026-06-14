@@ -2,14 +2,7 @@ import { Award, Building2, ShieldCheck, HeartHandshake, ArrowRight } from 'lucid
 import { PageHeader } from '../components/layout/PageHeader'
 import { Container, SectionHeading, Button, Badge } from '../components/ui/Primitives'
 import { Reveal } from '../components/ui/Reveal'
-import { usePartners } from '../hooks/useData'
-
-const stats = [
-  { value: '8', label: 'Flagship developments' },
-  { value: '18+', label: 'Signature units' },
-  { value: '11+', label: 'Government partners' },
-  { value: '100%', label: 'Approved standards' },
-]
+import { usePartners, useContent } from '../hooks/useData'
 
 const principles = [
   {
@@ -31,6 +24,13 @@ const principles = [
 
 export default function About() {
   const { data: partners } = usePartners()
+  const c = useContent()
+  const stats = [
+    { value: c('about.stat1_value', '8'), label: c('about.stat1_label', 'Flagship developments') },
+    { value: c('about.stat2_value', '18+'), label: c('about.stat2_label', 'Signature units') },
+    { value: c('about.stat3_value', '11+'), label: c('about.stat3_label', 'Government partners') },
+    { value: c('about.stat4_value', '100%'), label: c('about.stat4_label', 'Approved standards') },
+  ]
 
   return (
     <>
@@ -47,20 +47,21 @@ export default function About() {
         <Container>
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <Reveal>
-              <p className="kicker mb-3">Our Story</p>
+              <p className="kicker mb-3">{c('about.story.kicker', 'Our Story')}</p>
               <h2 className="font-display text-3xl font-semibold leading-tight text-navy-deep sm:text-4xl">
-                Innovative architecture, merging art with utility
+                {c('about.story.heading', 'Innovative architecture, merging art with utility')}
               </h2>
               <p className="mt-5 leading-relaxed text-ash">
-                Founded on a legacy of elite discipline and integrity, AHS Properties &amp;
-                Development Ltd. has become a trusted name in Bangladesh luxury real estate. Our
-                dedicated consultants bring unparalleled market insight, local knowledge and legal
-                clarity to every transaction.
+                {c(
+                  'about.story.body1',
+                  'Founded on a legacy of elite discipline and integrity, AHS Properties & Development Ltd. has become a trusted name in Bangladesh luxury real estate. Our dedicated consultants bring unparalleled market insight, local knowledge and legal clarity to every transaction.',
+                )}
               </p>
               <p className="mt-4 leading-relaxed text-ash">
-                From the green corridors of Jolshiri Abashon to elevated penthouses inside Dhaka
-                Cantonment, we build on approved standards and deliver with uncompromising material
-                quality and delivery assurance.
+                {c(
+                  'about.story.body2',
+                  'From the green corridors of Jolshiri Abashon to elevated penthouses inside Dhaka Cantonment, we build on approved standards and deliver with uncompromising material quality and delivery assurance.',
+                )}
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <Badge tone="gold">
@@ -73,12 +74,12 @@ export default function About() {
             <Reveal delay={120}>
               <div className="grid grid-cols-2 gap-4">
                 <img
-                  src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80"
+                  src={c('about.story.image1', 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80')}
                   alt="AHS development"
                   className="aspect-[3/4] w-full rounded-3xl object-cover card-shadow"
                 />
                 <img
-                  src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80"
+                  src={c('about.story.image2', 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80')}
                   alt="AHS residence"
                   className="mt-8 aspect-[3/4] w-full rounded-3xl object-cover card-shadow"
                 />
@@ -109,14 +110,16 @@ export default function About() {
             <Reveal className="relative">
               <div className="relative overflow-hidden rounded-[2rem] card-shadow">
                 <img
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1000&q=80"
-                  alt="DIG Md. Abu Kalam Siddique"
+                  src={c('founder.image', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1000&q=80')}
+                  alt="AHS founder portrait"
                   className="aspect-[4/5] w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-ink/70 to-transparent" />
                 <div className="glass-dark absolute bottom-5 left-5 right-5 rounded-2xl p-5 text-white">
-                  <p className="font-display text-lg font-semibold">DIG Md. Abu Kalam Siddique</p>
-                  <p className="text-sm text-gold">Founder & Principal Broker</p>
+                  <p className="font-display text-lg font-semibold">
+                    {c('founder.name', 'DIG Md. Abu Kalam Siddique')}
+                  </p>
+                  <p className="text-sm text-gold">{c('founder.role', 'Founder & Principal Broker')}</p>
                 </div>
               </div>
             </Reveal>
@@ -124,8 +127,8 @@ export default function About() {
               <SectionHeading
                 align="left"
                 kicker="Leadership"
-                title="A founder defined by service & vision"
-                intro="Our founder brings a lifetime of disciplined public service and an unwavering commitment to integrity, translating that ethos into how we build, sell and steward property."
+                title={c('about.leadership.heading', 'A founder defined by service & vision')}
+                intro={c('about.leadership.body', 'Our founder brings a lifetime of disciplined public service and an unwavering commitment to integrity, translating that ethos into how we build, sell and steward property.')}
               />
               <p className="mt-5 leading-relaxed text-ash">
                 Under this leadership, AHS partners with national authorities — from RAJUK and the

@@ -6,6 +6,7 @@ import {
   Building2,
   Upload,
   Images,
+  FileText,
   LogOut,
   ExternalLink,
 } from 'lucide-react'
@@ -20,6 +21,7 @@ const nav = [
   { to: '/admin/projects', label: 'Developments', icon: Building2, end: false },
   { to: '/admin/import', label: 'Import CSV', icon: Upload, end: false },
   { to: '/admin/media', label: 'Media Library', icon: Images, end: false },
+  { to: '/admin/content', label: 'Site Content', icon: FileText, end: false },
 ]
 
 export default function AdminLayout() {

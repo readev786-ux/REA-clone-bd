@@ -3,33 +3,41 @@ import { PageHeader } from '../components/layout/PageHeader'
 import { Container, SectionHeading } from '../components/ui/Primitives'
 import { InquiryForm, AppointmentForm } from '../components/Forms'
 import { CONTACT_EMAIL, WHATSAPP_NUMBER } from '../lib/supabase'
-
-const details = [
-  {
-    icon: MapPin,
-    title: 'Visit our Estate Desk',
-    lines: ['Rajnigandha Tower Area, Dhaka Cantonment', 'VIP Road, Nayapaltan, Dhaka'],
-  },
-  {
-    icon: Mail,
-    title: 'Email',
-    lines: [CONTACT_EMAIL],
-    href: `mailto:${CONTACT_EMAIL}`,
-  },
-  {
-    icon: MessageCircle,
-    title: 'WhatsApp / Call',
-    lines: [`+${WHATSAPP_NUMBER}`],
-    href: `https://wa.me/${WHATSAPP_NUMBER}`,
-  },
-  {
-    icon: Clock,
-    title: 'Estate Desk hours',
-    lines: ['Sat – Thu · 10:00 AM – 7:00 PM', 'Friday by appointment'],
-  },
-]
+import { useContent } from '../hooks/useData'
 
 export default function Contact() {
+  const c = useContent()
+  const details = [
+    {
+      icon: MapPin,
+      title: 'Visit our Estate Desk',
+      lines: [
+        c('contact.address1', 'Rajnigandha Tower Area, Dhaka Cantonment'),
+        c('contact.address2', 'VIP Road, Nayapaltan, Dhaka'),
+      ],
+    },
+    {
+      icon: Mail,
+      title: 'Email',
+      lines: [CONTACT_EMAIL],
+      href: `mailto:${CONTACT_EMAIL}`,
+    },
+    {
+      icon: MessageCircle,
+      title: 'WhatsApp / Call',
+      lines: [`+${WHATSAPP_NUMBER}`],
+      href: `https://wa.me/${WHATSAPP_NUMBER}`,
+    },
+    {
+      icon: Clock,
+      title: 'Estate Desk hours',
+      lines: [
+        c('contact.hours1', 'Sat – Thu · 10:00 AM – 7:00 PM'),
+        c('contact.hours2', 'Friday by appointment'),
+      ],
+    },
+  ]
+
   return (
     <>
       <PageHeader

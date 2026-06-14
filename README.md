@@ -40,6 +40,9 @@ site, re-architected as a **production-ready full-stack application** with a
   downloadable template (preview before importing).
 - **Media Library** — drag-and-drop photos onto each development at scale, with
   a "missing photos" filter for finishing a fresh import.
+- **Site Content** — edit homepage / about / contact copy and imagery (hero,
+  founder, stats, CTA, address) from a grouped form; pages fall back to
+  code-side defaults until overridden.
 
 ### Backend (Supabase)
 - 9 tables: `projects`, `units`, `inquiries`, `appointments`, `blog_posts`,

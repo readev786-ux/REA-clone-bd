@@ -129,6 +129,15 @@ export interface Faq {
   sort_order: number
 }
 
+export interface SiteContent {
+  key: string
+  value: string
+  type: 'text' | 'textarea' | 'image' | 'number'
+  group_name: string
+  label: string
+  sort_order: number
+}
+
 export interface Profile {
   id: string
   email: string | null
