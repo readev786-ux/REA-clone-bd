@@ -41,11 +41,11 @@ export default function Contact() {
   return (
     <>
       <PageHeader
-        kicker="Estate Desk"
-        title="Let's find your perfect property"
-        intro="Dedicated professionals ready to help you find your perfect property or next key investment opportunity in Bangladesh."
+        kicker={c('page.contact.kicker', 'Estate Desk')}
+        title={c('page.contact.title', "Let's find your perfect property")}
+        intro={c('page.contact.intro', 'Dedicated professionals ready to help you find your perfect property or next key investment opportunity in Bangladesh.')}
         crumb="Contact"
-        image="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80"
+        image={c('page.contact.image', 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80')}
       />
 
       {/* Details + inquiry */}

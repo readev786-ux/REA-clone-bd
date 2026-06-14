@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
+import { useContent } from '../../hooks/useData'
 
 export function Logo({ light = false, compact = false }: { light?: boolean; compact?: boolean }) {
+  const c = useContent()
   return (
     <Link to="/" className="group flex items-center gap-3" aria-label="AHS Properties home">
       <span className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-navy to-navy-darker shadow-lg ring-1 ring-gold/30">
@@ -18,14 +20,14 @@ export function Logo({ light = false, compact = false }: { light?: boolean; comp
               light ? 'text-white' : 'text-navy-deep'
             }`}
           >
-            AHS Properties
+            {c('brand.name', 'AHS Properties')}
           </span>
           <span
             className={`mt-0.5 font-mono text-[0.6rem] uppercase tracking-[0.22em] ${
               light ? 'text-gold/90' : 'text-gold-deep'
             }`}
           >
-            & Development Ltd.
+            {c('brand.tagline', '& Development Ltd.')}
           </span>
         </span>
       )}

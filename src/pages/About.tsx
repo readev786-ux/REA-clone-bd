@@ -29,11 +29,11 @@ export default function About() {
   return (
     <>
       <PageHeader
-        kicker="A Legacy of Trust and Vision"
-        title="AHS Properties & Development Ltd."
-        intro="A legacy of elite discipline, integrity and visionary leadership — delivering premium residential and commercial spaces across Bangladesh."
+        kicker={c('page.about.kicker', 'A Legacy of Trust and Vision')}
+        title={c('page.about.title', 'AHS Properties & Development Ltd.')}
+        intro={c('page.about.intro', 'A legacy of elite discipline, integrity and visionary leadership — delivering premium residential and commercial spaces across Bangladesh.')}
         crumb="About"
-        image="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=2000&q=80"
+        image={c('page.about.image', 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=2000&q=80')}
       />
 
       {/* Story */}

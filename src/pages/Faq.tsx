@@ -2,20 +2,21 @@ import { useState } from 'react'
 import { Plus, Minus, MessageCircleQuestion } from 'lucide-react'
 import { PageHeader } from '../components/layout/PageHeader'
 import { Container, Spinner, Button } from '../components/ui/Primitives'
-import { useFaqs } from '../hooks/useData'
+import { useFaqs, useContent } from '../hooks/useData'
 
 export default function Faq() {
   const { data: faqs, isLoading } = useFaqs()
   const [open, setOpen] = useState<string | null>(null)
+  const c = useContent()
 
   return (
     <>
       <PageHeader
-        kicker="Frequently Asked Questions"
-        title="Answers for confident buyers"
-        intro="Everything you need to know about approvals, payments, eligibility and delivery at AHS Properties."
+        kicker={c('page.faq.kicker', 'Frequently Asked Questions')}
+        title={c('page.faq.title', 'Answers for confident buyers')}
+        intro={c('page.faq.intro', 'Everything you need to know about approvals, payments, eligibility and delivery at AHS Properties.')}
         crumb="FAQ"
-        image="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2000&q=80"
+        image={c('page.faq.image', 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2000&q=80')}
       />
 
       <Container className="py-16">

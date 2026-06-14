@@ -4,7 +4,7 @@ import { PageHeader } from '../components/layout/PageHeader'
 import { Container, SectionHeading, Button } from '../components/ui/Primitives'
 import { Reveal } from '../components/ui/Reveal'
 import { PropertyCard, PropertyCardSkeleton } from '../components/PropertyCard'
-import { useProjects, useFeatureCards } from '../hooks/useData'
+import { useProjects, useFeatureCards, useContent } from '../hooks/useData'
 
 const FALLBACK_PILLARS = [
   { icon: 'TrendingUp', title: 'High-Yield Optimization', body: 'Portfolios structured for durable appreciation across Jolshiri and Dhaka growth corridors.' },
@@ -23,15 +23,16 @@ export default function Investments() {
     (featureCards ?? []).filter((cd) => cd.section === 'investment_pillars').length
       ? (featureCards ?? []).filter((cd) => cd.section === 'investment_pillars')
       : FALLBACK_PILLARS
+  const c = useContent()
 
   return (
     <>
       <PageHeader
-        kicker="Investment Projects & Townships"
-        title="Build wealth on approved foundations"
-        intro="Master-planned townships and curated investment portfolios engineered for elite capital pools seeking compliant, high-yield exposure to Bangladeshi real estate."
+        kicker={c('page.investments.kicker', 'Investment Projects & Townships')}
+        title={c('page.investments.title', 'Build wealth on approved foundations')}
+        intro={c('page.investments.intro', 'Master-planned townships and curated investment portfolios engineered for elite capital pools seeking compliant, high-yield exposure to Bangladeshi real estate.')}
         crumb="Investments"
-        image="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=2000&q=80"
+        image={c('page.investments.image', 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=2000&q=80')}
       />
 
       {/* Pillars */}

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Facebook, Instagram, Mail, MapPin, MessageCircle, ShieldCheck } from 'lucide-react'
 import { Logo } from '../ui/Logo'
 import { CONTACT_EMAIL, WHATSAPP_NUMBER } from '../../lib/supabase'
+import { useContent } from '../../hooks/useData'
 
 const columns = [
   {
@@ -25,6 +26,7 @@ const columns = [
 ]
 
 export function Footer() {
+  const c = useContent()
   return (
     <footer className="relative mt-24 overflow-hidden bg-navy-darker text-white/80">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(223,173,66,0.12),transparent_55%)]" />
@@ -33,12 +35,14 @@ export function Footer() {
           <div>
             <Logo light />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/60">
-              Accredited premium residential, commercial and township developments across
-              Bangladesh — built on integrity, escrow and approved standards.
+              {c(
+                'footer.tagline',
+                'Accredited premium residential, commercial and township developments across Bangladesh — built on integrity, escrow and approved standards.',
+              )}
             </p>
             <div className="mt-5 flex gap-3">
               <a
-                href="https://facebook.com"
+                href={c('social.facebook', 'https://facebook.com')}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Facebook"
@@ -47,7 +51,7 @@ export function Footer() {
                 <Facebook className="h-4.5 w-4.5" />
               </a>
               <a
-                href="https://instagram.com"
+                href={c('social.instagram', 'https://instagram.com')}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Instagram"
@@ -115,7 +119,7 @@ export function Footer() {
           <p>© {new Date().getFullYear()} AHS Properties & Development Ltd. All rights reserved.</p>
           <p className="inline-flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 text-gold/70" />
-            RAJUK & Cantonment Approved · EDB Scheme Registered
+            {c('footer.accreditation', 'RAJUK & Cantonment Approved · EDB Scheme Registered')}
           </p>
         </div>
       </div>

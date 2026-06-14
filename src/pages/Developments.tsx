@@ -4,7 +4,7 @@ import { Search, SlidersHorizontal, MapPinned } from 'lucide-react'
 import { PageHeader } from '../components/layout/PageHeader'
 import { Container } from '../components/ui/Primitives'
 import { PropertyCard, PropertyCardSkeleton } from '../components/PropertyCard'
-import { useProjects } from '../hooks/useData'
+import { useProjects, useContent } from '../hooks/useData'
 import type { Project } from '../lib/types'
 
 const categories = [
@@ -31,6 +31,7 @@ export default function Developments() {
   const [sort, setSort] = useState<SortKey>('featured')
 
   const { data, isLoading } = useProjects({ search, category, status })
+  const c = useContent()
 
   function updateCategory(value: string) {
     setCategory(value)
@@ -52,10 +53,11 @@ export default function Developments() {
   return (
     <>
       <PageHeader
-        kicker="Developments & Schemes"
-        title="Exclusive Estates & Investment Portfolios"
-        intro="Filter by coastal zones, property categories or budgets to discover your next address across Jolshiri Abashon and Dhaka."
+        kicker={c('page.developments.kicker', 'Developments & Schemes')}
+        title={c('page.developments.title', 'Exclusive Estates & Investment Portfolios')}
+        intro={c('page.developments.intro', 'Filter by coastal zones, property categories or budgets to discover your next address across Jolshiri Abashon and Dhaka.')}
         crumb="Developments"
+        image={c('page.developments.image', 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=2000&q=80')}
       />
 
       {/* Filter bar */}

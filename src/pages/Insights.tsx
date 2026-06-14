@@ -3,21 +3,22 @@ import { ArrowRight, Clock } from 'lucide-react'
 import { PageHeader } from '../components/layout/PageHeader'
 import { Container, Badge, Spinner } from '../components/ui/Primitives'
 import { Reveal } from '../components/ui/Reveal'
-import { useBlogPosts } from '../hooks/useData'
+import { useBlogPosts, useContent } from '../hooks/useData'
 import { formatDate } from '../lib/format'
 
 export default function Insights() {
   const { data: posts, isLoading } = useBlogPosts()
+  const c = useContent()
   const [featured, ...rest] = posts ?? []
 
   return (
     <>
       <PageHeader
-        kicker="Real Estate & Investment Insights"
-        title="Smart City Housing & Development in Bangladesh"
-        intro="Keep up with Bangladesh real estate laws, guidelines and modern smart-city perspectives from the AHS editorial desk."
+        kicker={c('page.insights.kicker', 'Real Estate & Investment Insights')}
+        title={c('page.insights.title', 'Smart City Housing & Development in Bangladesh')}
+        intro={c('page.insights.intro', 'Keep up with Bangladesh real estate laws, guidelines and modern smart-city perspectives from the AHS editorial desk.')}
         crumb="Insights"
-        image="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=2000&q=80"
+        image={c('page.insights.image', 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=2000&q=80')}
       />
 
       <Container className="py-16">
