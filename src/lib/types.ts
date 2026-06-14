@@ -138,6 +138,17 @@ export interface SiteContent {
   sort_order: number
 }
 
+export type FeatureSection = 'home_values' | 'investment_pillars' | 'about_principles'
+
+export interface FeatureCard {
+  id: string
+  section: FeatureSection
+  icon: string
+  title: string
+  body: string
+  sort_order: number
+}
+
 export interface Profile {
   id: string
   email: string | null

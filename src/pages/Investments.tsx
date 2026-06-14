@@ -1,31 +1,16 @@
-import { TrendingUp, FileText, ShieldCheck, Globe2, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import { getIcon } from '../lib/icons'
 import { PageHeader } from '../components/layout/PageHeader'
 import { Container, SectionHeading, Button } from '../components/ui/Primitives'
 import { Reveal } from '../components/ui/Reveal'
 import { PropertyCard, PropertyCardSkeleton } from '../components/PropertyCard'
-import { useProjects } from '../hooks/useData'
+import { useProjects, useFeatureCards } from '../hooks/useData'
 
-const pillars = [
-  {
-    icon: TrendingUp,
-    title: 'High-Yield Optimization',
-    body: 'Portfolios structured for durable appreciation across Jolshiri and Dhaka growth corridors.',
-  },
-  {
-    icon: FileText,
-    title: 'Priority Option Letters',
-    body: 'Secure first-right allocations on upcoming releases through private placement consultation.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Escrow-Backed Capital',
-    body: 'Funds released only against verified title and construction milestones — built on integrity.',
-  },
-  {
-    icon: Globe2,
-    title: 'NRB & Residency Support',
-    body: 'Permanent residency pathways and remote reservation for overseas Bangladeshi investors.',
-  },
+const FALLBACK_PILLARS = [
+  { icon: 'TrendingUp', title: 'High-Yield Optimization', body: 'Portfolios structured for durable appreciation across Jolshiri and Dhaka growth corridors.' },
+  { icon: 'FileText', title: 'Priority Option Letters', body: 'Secure first-right allocations on upcoming releases through private placement consultation.' },
+  { icon: 'ShieldCheck', title: 'Escrow-Backed Capital', body: 'Funds released only against verified title and construction milestones — built on integrity.' },
+  { icon: 'Globe2', title: 'NRB & Residency Support', body: 'Permanent residency pathways and remote reservation for overseas Bangladeshi investors.' },
 ]
 
 export default function Investments() {
@@ -33,6 +18,11 @@ export default function Investments() {
   const investmentProjects = (data ?? []).filter(
     (p) => p.category === 'investment' || p.category === 'township',
   )
+  const featureCards = useFeatureCards().data
+  const pillars =
+    (featureCards ?? []).filter((cd) => cd.section === 'investment_pillars').length
+      ? (featureCards ?? []).filter((cd) => cd.section === 'investment_pillars')
+      : FALLBACK_PILLARS
 
   return (
     <>
@@ -48,19 +38,22 @@ export default function Investments() {
       <section className="py-20">
         <Container>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {pillars.map((p, i) => (
-              <Reveal key={p.title} delay={i * 80}>
-                <div className="h-full rounded-3xl border border-black/5 bg-white p-7 card-shadow">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy text-gold">
-                    <p.icon className="h-6 w-6" />
+            {pillars.map((p, i) => {
+              const Icon = getIcon(p.icon)
+              return (
+                <Reveal key={p.title} delay={i * 80}>
+                  <div className="h-full rounded-3xl border border-black/5 bg-white p-7 card-shadow">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy text-gold">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="mt-5 font-display text-lg font-semibold text-navy-deep">
+                      {p.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ash">{p.body}</p>
                   </div>
-                  <h3 className="mt-5 font-display text-lg font-semibold text-navy-deep">
-                    {p.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ash">{p.body}</p>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              )
+            })}
           </div>
         </Container>
       </section>

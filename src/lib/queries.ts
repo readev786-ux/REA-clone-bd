@@ -5,6 +5,7 @@ import type {
   Faq,
   Inquiry,
   Partner,
+  FeatureCard,
   Project,
   ProjectWithUnits,
   SiteContent,
@@ -122,6 +123,16 @@ export async function updateSiteContentValues(rows: { key: string; value: string
     const { error } = await supabase.from('site_content').update({ value: r.value }).eq('key', r.key)
     if (error) throw error
   }
+}
+
+export async function fetchFeatureCards(): Promise<FeatureCard[]> {
+  const { data, error } = await supabase
+    .from('feature_cards')
+    .select('*')
+    .order('section')
+    .order('sort_order')
+  if (error) throw error
+  return data ?? []
 }
 
 // ---- Lead capture (public insert) ------------------------------------

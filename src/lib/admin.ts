@@ -9,6 +9,9 @@ import type {
   ProjectStatus,
   Testimonial,
   BlogPost,
+  Partner,
+  Faq,
+  FeatureCard,
 } from './types'
 
 // ---------------------------------------------------------------------
@@ -424,6 +427,60 @@ export async function saveBlogPost(post: Partial<BlogPost> & { title: string }) 
 
 export async function deleteBlogPost(id: string) {
   const { error } = await supabase.from('blog_posts').delete().eq('id', id)
+  if (error) throw error
+}
+
+// ---------------------------------------------------------------------
+// Partners / accreditations
+// ---------------------------------------------------------------------
+export async function savePartner(p: Partial<Partner> & { name: string }) {
+  if (p.id) {
+    const { error } = await supabase.from('partners').update(p).eq('id', p.id)
+    if (error) throw error
+  } else {
+    const { error } = await supabase.from('partners').insert(p)
+    if (error) throw error
+  }
+}
+
+export async function deletePartner(id: string) {
+  const { error } = await supabase.from('partners').delete().eq('id', id)
+  if (error) throw error
+}
+
+// ---------------------------------------------------------------------
+// FAQs
+// ---------------------------------------------------------------------
+export async function saveFaq(f: Partial<Faq> & { question: string; answer: string }) {
+  if (f.id) {
+    const { error } = await supabase.from('faqs').update(f).eq('id', f.id)
+    if (error) throw error
+  } else {
+    const { error } = await supabase.from('faqs').insert(f)
+    if (error) throw error
+  }
+}
+
+export async function deleteFaq(id: string) {
+  const { error } = await supabase.from('faqs').delete().eq('id', id)
+  if (error) throw error
+}
+
+// ---------------------------------------------------------------------
+// Feature cards (home values / investment pillars / about principles)
+// ---------------------------------------------------------------------
+export async function saveFeatureCard(f: Partial<FeatureCard> & { section: string; title: string }) {
+  if (f.id) {
+    const { error } = await supabase.from('feature_cards').update(f).eq('id', f.id)
+    if (error) throw error
+  } else {
+    const { error } = await supabase.from('feature_cards').insert(f)
+    if (error) throw error
+  }
+}
+
+export async function deleteFeatureCard(id: string) {
+  const { error } = await supabase.from('feature_cards').delete().eq('id', id)
   if (error) throw error
 }
 

@@ -9,6 +9,9 @@ import {
   FileText,
   MessageSquareQuote,
   Newspaper,
+  Landmark,
+  HelpCircle,
+  LayoutGrid,
   LogOut,
   ExternalLink,
 } from 'lucide-react'
@@ -26,6 +29,9 @@ const nav = [
   { to: '/admin/content', label: 'Site Content', icon: FileText, end: false },
   { to: '/admin/testimonials', label: 'Testimonials', icon: MessageSquareQuote, end: false },
   { to: '/admin/blog', label: 'Insights', icon: Newspaper, end: false },
+  { to: '/admin/partners', label: 'Partners', icon: Landmark, end: false },
+  { to: '/admin/faqs', label: 'FAQ', icon: HelpCircle, end: false },
+  { to: '/admin/cards', label: 'Feature Cards', icon: LayoutGrid, end: false },
 ]
 
 export default function AdminLayout() {

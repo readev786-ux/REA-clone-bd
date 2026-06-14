@@ -12,6 +12,7 @@ import {
   fetchProjectBySlug,
   fetchProjects,
   fetchSiteContent,
+  fetchFeatureCards,
   fetchTestimonials,
   type ProjectFilters,
 } from '../lib/queries'
@@ -45,6 +46,9 @@ export const useTestimonials = () =>
   useQuery({ queryKey: ['testimonials'], queryFn: fetchTestimonials })
 
 export const useFaqs = () => useQuery({ queryKey: ['faqs'], queryFn: fetchFaqs })
+
+export const useFeatureCards = () =>
+  useQuery({ queryKey: ['feature_cards'], queryFn: fetchFeatureCards, staleTime: 300_000 })
 
 export const useSiteContent = () =>
   useQuery({ queryKey: ['site_content'], queryFn: fetchSiteContent, staleTime: 300_000 })

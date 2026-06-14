@@ -1,25 +1,14 @@
-import { Award, Building2, ShieldCheck, HeartHandshake, ArrowRight } from 'lucide-react'
+import { Award, ShieldCheck, ArrowRight } from 'lucide-react'
+import { getIcon } from '../lib/icons'
 import { PageHeader } from '../components/layout/PageHeader'
 import { Container, SectionHeading, Button, Badge } from '../components/ui/Primitives'
 import { Reveal } from '../components/ui/Reveal'
-import { usePartners, useContent } from '../hooks/useData'
+import { usePartners, useContent, useFeatureCards } from '../hooks/useData'
 
-const principles = [
-  {
-    icon: ShieldCheck,
-    title: 'Integrity & Escrow',
-    body: 'We register a formal escrow trail on every reservation, protecting buyers at each milestone.',
-  },
-  {
-    icon: Building2,
-    title: 'Approved Standards',
-    body: 'RAJUK and Cantonment approvals with fully cleared land mutation titles before release.',
-  },
-  {
-    icon: HeartHandshake,
-    title: 'Social Impact',
-    body: 'A commitment to philanthropy and community uplift woven through our development ethos.',
-  },
+const FALLBACK_PRINCIPLES = [
+  { icon: 'ShieldCheck', title: 'Integrity & Escrow', body: 'We register a formal escrow trail on every reservation, protecting buyers at each milestone.' },
+  { icon: 'Building2', title: 'Approved Standards', body: 'RAJUK and Cantonment approvals with fully cleared land mutation titles before release.' },
+  { icon: 'HeartHandshake', title: 'Social Impact', body: 'A commitment to philanthropy and community uplift woven through our development ethos.' },
 ]
 
 export default function About() {
@@ -31,6 +20,11 @@ export default function About() {
     { value: c('about.stat3_value', '11+'), label: c('about.stat3_label', 'Government partners') },
     { value: c('about.stat4_value', '100%'), label: c('about.stat4_label', 'Approved standards') },
   ]
+  const featureCards = useFeatureCards().data
+  const principles =
+    (featureCards ?? []).filter((cd) => cd.section === 'about_principles').length
+      ? (featureCards ?? []).filter((cd) => cd.section === 'about_principles')
+      : FALLBACK_PRINCIPLES
 
   return (
     <>
@@ -153,19 +147,22 @@ export default function About() {
             title="Principles that hold up our foundations"
           />
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {principles.map((p, i) => (
-              <Reveal key={p.title} delay={i * 80}>
-                <div className="h-full rounded-3xl border border-black/5 bg-white p-8 card-shadow">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-wash text-gold-deep">
-                    <p.icon className="h-7 w-7" />
+            {principles.map((p, i) => {
+              const Icon = getIcon(p.icon)
+              return (
+                <Reveal key={p.title} delay={i * 80}>
+                  <div className="h-full rounded-3xl border border-black/5 bg-white p-8 card-shadow">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-wash text-gold-deep">
+                      <Icon className="h-7 w-7" />
+                    </div>
+                    <h3 className="mt-6 font-display text-xl font-semibold text-navy-deep">
+                      {p.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-ash">{p.body}</p>
                   </div>
-                  <h3 className="mt-6 font-display text-xl font-semibold text-navy-deep">
-                    {p.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ash">{p.body}</p>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              )
+            })}
           </div>
         </Container>
       </section>

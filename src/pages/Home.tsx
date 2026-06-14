@@ -1,15 +1,6 @@
 import { Link } from 'react-router-dom'
-import {
-  ArrowRight,
-  ShieldCheck,
-  Landmark,
-  TrendingUp,
-  Gem,
-  HandCoins,
-  HardHat,
-  Quote,
-  Star,
-} from 'lucide-react'
+import { ArrowRight, Quote, Star } from 'lucide-react'
+import { getIcon } from '../lib/icons'
 import { Hero } from '../components/home/Hero'
 import { Container, SectionHeading, Button, Badge } from '../components/ui/Primitives'
 import { Reveal } from '../components/ui/Reveal'
@@ -21,40 +12,17 @@ import {
   useTestimonials,
   useBlogPosts,
   useContent,
+  useFeatureCards,
 } from '../hooks/useData'
 import { formatDate } from '../lib/format'
 
-const values = [
-  {
-    icon: ShieldCheck,
-    title: 'Built on Integrity & Escrow',
-    body: 'Every transaction is escrow-backed and released against verified construction and title milestones.',
-  },
-  {
-    icon: Landmark,
-    title: 'RAJUK & Cantonment Approved',
-    body: 'Fully cleared land mutation titles and national building-safety compliance on every development.',
-  },
-  {
-    icon: TrendingUp,
-    title: 'High-Yield Optimization',
-    body: 'Dedicated consultants with unparalleled market insight engineer durable, appreciating returns.',
-  },
-  {
-    icon: Gem,
-    title: 'Uncompromising Quality',
-    body: 'European cabinetry, silent VRF cooling and premium materials with delivery assurance.',
-  },
-  {
-    icon: HandCoins,
-    title: 'Off-Market Advisory',
-    body: 'Private placement consultation and priority option letters for high-net-worth capital pools.',
-  },
-  {
-    icon: HardHat,
-    title: 'Approved Standards',
-    body: 'Guaranteed compliance with national building safety acts and accredited engineering oversight.',
-  },
+const FALLBACK_VALUES = [
+  { icon: 'ShieldCheck', title: 'Built on Integrity & Escrow', body: 'Every transaction is escrow-backed and released against verified construction and title milestones.' },
+  { icon: 'Landmark', title: 'RAJUK & Cantonment Approved', body: 'Fully cleared land mutation titles and national building-safety compliance on every development.' },
+  { icon: 'TrendingUp', title: 'High-Yield Optimization', body: 'Dedicated consultants with unparalleled market insight engineer durable, appreciating returns.' },
+  { icon: 'Gem', title: 'Uncompromising Quality', body: 'European cabinetry, silent VRF cooling and premium materials with delivery assurance.' },
+  { icon: 'HandCoins', title: 'Off-Market Advisory', body: 'Private placement consultation and priority option letters for high-net-worth capital pools.' },
+  { icon: 'HardHat', title: 'Approved Standards', body: 'Guaranteed compliance with national building safety acts and accredited engineering oversight.' },
 ]
 
 export default function Home() {
@@ -63,6 +31,11 @@ export default function Home() {
   const { data: testimonials } = useTestimonials()
   const { data: posts } = useBlogPosts()
   const c = useContent()
+  const featureCards = useFeatureCards().data
+  const homeValues =
+    (featureCards ?? []).filter((cd) => cd.section === 'home_values').length
+      ? (featureCards ?? []).filter((cd) => cd.section === 'home_values')
+      : FALLBACK_VALUES
 
   return (
     <>
@@ -114,19 +87,22 @@ export default function Home() {
             intro="Our commitment to excellence drives everything we do — from approvals and escrow to material quality and after-sales care."
           />
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {values.map((v, i) => (
-              <Reveal key={v.title} delay={i * 70}>
-                <div className="group h-full rounded-3xl border border-black/5 bg-paper p-8 card-shadow transition hover:-translate-y-1.5">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-navy text-gold transition group-hover:bg-gold group-hover:text-navy">
-                    <v.icon className="h-7 w-7" />
+            {homeValues.map((v, i) => {
+              const Icon = getIcon(v.icon)
+              return (
+                <Reveal key={v.title} delay={i * 70}>
+                  <div className="group h-full rounded-3xl border border-black/5 bg-paper p-8 card-shadow transition hover:-translate-y-1.5">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-navy text-gold transition group-hover:bg-gold group-hover:text-navy">
+                      <Icon className="h-7 w-7" />
+                    </div>
+                    <h3 className="mt-6 font-display text-xl font-semibold text-navy-deep">
+                      {v.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-ash">{v.body}</p>
                   </div>
-                  <h3 className="mt-6 font-display text-xl font-semibold text-navy-deep">
-                    {v.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ash">{v.body}</p>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              )
+            })}
           </div>
         </Container>
       </section>
